@@ -147,6 +147,11 @@ export function processMCPEnv(obj: Readonly<MCPOptions>, userId?: string): MCPOp
   if ('url' in newObj && newObj.url) {
     newObj.url = extractEnvVariable(newObj.url);
   }
+  
+  // Process args array if it exists
+  if ('args' in newObj && Array.isArray(newObj.args)) {
+    newObj.args = newObj.args.map(arg => typeof arg === 'string' ? extractEnvVariable(arg) : arg);
+  }
 
   return newObj;
 }
